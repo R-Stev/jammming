@@ -1,0 +1,27 @@
+.searchBar {
+    /* display: flex;
+    justify-content: center; */
+    padding: 16px 0;
+    background-color: rgba(100, 0, 100, 0.75);
+    width: 450px;
+}
+
+.searchBar input[type=text] {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-width: 0px 0px 2px 0px;
+    color: #eeeeee;
+    width: 60%;
+}
+
+#searchInput {
+    height: 32px;
+    margin-right: 32px;
+}
+
+.toggleClosed {
+    padding: 3px 10px;
+}
+
+.toggleOpen {
+    padding: 3px 8px;
+}

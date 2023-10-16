@@ -1,0 +1,10 @@
+.searchresults {
+    background-color: rgba(100, 0, 100, 0.75);
+    color: #eeeeee;
+    max-width: 450px;
+}
+
+#prevPage, #nextPage {
+    padding: 3px 8px;
+}
+

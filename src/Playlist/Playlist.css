@@ -1,0 +1,11 @@
+.toggleClosed {
+    padding: 3px 10px;
+}
+
+.toggleOpen, .deletePlaylist {
+    padding: 3px 8px;
+}
+
+.editPlaylist {
+    padding: 3px 7px;
+}

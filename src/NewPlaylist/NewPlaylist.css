@@ -1,0 +1,29 @@
+.playlist {
+    background-color: rgba(100, 0, 100, 0.75);
+    color: #eeeeee;
+    max-width: 450px;
+}
+
+.playlist input[type=text] {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-width: 0px 0px 2px 0px;
+    color: #eeeeee;
+    width: 75%;
+}
+
+#playlistTitleInput {
+    height: 32px;
+    margin-right: 32px;
+}
+
+.toggleClosed {
+    padding: 3px 10px;
+}
+
+.toggleOpen {
+    padding: 3px 8px;
+}
+
+label {
+    margin: 0;
+}

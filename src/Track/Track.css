@@ -1,0 +1,19 @@
+.track p {
+    margin: 0;
+}
+
+.albumName {
+    font-size: 0.8rem;
+}
+
+.trackText {
+    max-width: min(calc(100vw - 144px), 434px);
+}
+
+.trackTextBtn {
+    max-width: min(calc(50vw - 96px), 386px);
+}
+
+.trackBtn {
+    padding: 3px 8px;
+}
