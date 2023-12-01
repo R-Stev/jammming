@@ -11,6 +11,7 @@ import {useState} from 'react';
 /* Todo:
   add playlist pages, similar to the search results
   get the list of tracks in a playlist only on request?
+  add handling for HTTP 429 rate limiting?
   convert to using redux?
   more tests?
  */

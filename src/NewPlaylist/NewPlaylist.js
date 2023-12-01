@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import './NewPlaylist.css';
 import Tracklist from '../Tracklist/Tracklist.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,15 +26,26 @@ export default function NewPlaylist({
     </div>
   </div>;
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   if(oldPlaylist){
+  //     if(oldPlaylist === 'clear'){
+  //       clearPlaylist();
+  //     } else {
+  //       setDetailElements(oldPlaylist);
+  //     }
+  //   }
+  // }, [oldPlaylist, showDetails]);
+
+  const [prevDetails, setPrevDetails] = useState(showDetails);
+  const [prevPlaylist, setPrevPlaylist] = useState(oldPlaylist);
+  if (showDetails !== prevDetails || oldPlaylist !== prevPlaylist) {
+    setPrevDetails(showDetails);
+    setPrevPlaylist(oldPlaylist);
     if(oldPlaylist){
-      if(oldPlaylist === 'clear'){
-        clearPlaylist();
-      } else {
-        setDetailElements(oldPlaylist);
-      }
+      (oldPlaylist === 'clear') ? clearPlaylist() : setDetailElements(oldPlaylist);
     }
-  }, [oldPlaylist, showDetails]);
+  }
+
 
   function toggleDetails() {
     setShowDetails(!showDetails);

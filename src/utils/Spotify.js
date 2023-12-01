@@ -1,10 +1,20 @@
 import secrets from '../secrets.json';
 import PopupWindow from './PopupWindow.js';
-import {useEffect} from 'react';
+import {useState} from 'react';
 
 const redirectUri = 'http://localhost:3000/';
 // const urlParams = new URLSearchParams(window.location.search);
 // const code = urlParams.get('code');
+
+
+const CLIENT_ID = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? secrets.CLIENT_ID : process.env.CLIENT_ID;
+if(process.env.CLIENT_ID){
+    console.log('prod');
+    process.env.CLIENT_ID = null;
+    delete process.env.CLIENT_ID;
+} else {
+    console.log('dev');
+}
 
 export default function Spotify({
     loggedIn,
@@ -25,7 +35,23 @@ export default function Spotify({
     oldPlaylist,
     setOldPlaylist
 }) {
-    useEffect(() => {
+    // useEffect(() => {
+    //     const fetchResult = async () => {
+    //         if(term){
+    //             const result = await search(term, page);
+    //             if(result){
+    //                 setSearchResults(result);
+    //             }
+    //         }    
+    //     }
+    //     fetchResult();
+    // }, [term, page]);
+
+    const [prevTerm, setPrevTerm] = useState(term);
+    const [prevPage, setPrevPage] = useState(page);
+    if (term !== prevTerm || page !== prevPage) {
+        setPrevTerm(term);
+        setPrevPage(page);
         const fetchResult = async () => {
             if(term){
                 const result = await search(term, page);
@@ -35,8 +61,26 @@ export default function Spotify({
             }    
         }
         fetchResult();
-    }, [term, page]);
-    useEffect(() => {
+    }
+
+
+    // useEffect(() => {
+    //     const playlistEdits = async () => {
+    //         if(playlistDetails){
+    //             if(oldPlaylist){
+    //                 await savePlaylist(playlistDetails, trackUris, oldPlaylist)
+    //             } else {await savePlaylist(playlistDetails, trackUris)}
+    //             refreshPlaylists();
+    //         }
+    //     }
+    //     playlistEdits()
+    // }, [playlistDetails, trackUris]);
+    
+    const [prevDetails, setPrevDetails] = useState(playlistDetails);
+    const [prevUris, setPrevUris] = useState(trackUris);
+    if (playlistDetails !== prevDetails || trackUris !== prevUris) {
+        setPrevDetails(playlistDetails);
+        setPrevUris(trackUris);
         const playlistEdits = async () => {
             if(playlistDetails){
                 if(oldPlaylist){
@@ -45,18 +89,36 @@ export default function Spotify({
                 refreshPlaylists();
             }
         }
-        playlistEdits()
-    }, [playlistDetails, trackUris]);
-    useEffect(() => {
-        refreshPlaylists();
-    }, [loggedIn]);
-    useEffect(() => {
+        playlistEdits();
+    }
+
+    // useEffect(() => {
+    //     refreshPlaylists();
+    // }, [loggedIn]);
+
+    const [prevLogin, setPrevLogin] = useState(false);
+    if (loggedIn !== prevLogin) {
+      setPrevLogin(loggedIn);
+      refreshPlaylists();
+    }
+
+    // useEffect(() => {
+    //     if(playlistToDelete){
+    //         console.log(playlistToDelete);
+    //         deletePlaylist(playlistToDelete);
+    //         setPlaylistToDelete(null);
+    //     }
+    // }, [playlistToDelete])
+
+    const [prevDeletion, setPrevDeletion] = useState(playlistToDelete);
+    if(playlistToDelete !== prevDeletion) {
+        setPrevDeletion(playlistToDelete);
         if(playlistToDelete){
             console.log(playlistToDelete);
             deletePlaylist(playlistToDelete);
             setPlaylistToDelete(null);
         }
-    }, [playlistToDelete])
+    }
 
     // Authorization Code with PKCE Flow
     function redirectToSpotifyAuth() {
@@ -71,7 +133,7 @@ export default function Spotify({
         
             let args = new URLSearchParams({
             response_type: 'code',
-            client_id: secrets.CLIENT_ID,
+            client_id: CLIENT_ID,
             scope: scope,
             redirect_uri: redirectUri,
             state: state,
@@ -123,7 +185,7 @@ export default function Spotify({
             grant_type: 'authorization_code',
             code: code,
             redirect_uri: redirectUri,
-            client_id: secrets.CLIENT_ID,
+            client_id: CLIENT_ID,
             code_verifier: sessionStorage.getItem('code_verifier')
         });
         exchangeToken(body);
@@ -169,7 +231,7 @@ export default function Spotify({
                 const body = new URLSearchParams({
                     grant_type: 'refresh_token',
                     refresh_token: refreshToken,
-                    client_id: secrets.CLIENT_ID
+                    client_id: CLIENT_ID
                 });
         
                 token = await exchangeToken(body);
