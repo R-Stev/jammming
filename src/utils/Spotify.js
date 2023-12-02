@@ -2,19 +2,13 @@ import secrets from '../secrets.json';
 import PopupWindow from './PopupWindow.js';
 import {useState} from 'react';
 
-const redirectUri = 'http://localhost:3000/';
-// const urlParams = new URLSearchParams(window.location.search);
-// const code = urlParams.get('code');
+const redirectUri = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development')
+    ? 'http://localhost:3000/'
+    : 'https://spotify-playlist-manage.netlify.app/';
 
-
-const CLIENT_ID = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? secrets.CLIENT_ID : process.env.CLIENT_ID;
-if(process.env.CLIENT_ID){
-    console.log('prod');
-    process.env.CLIENT_ID = null;
-    delete process.env.CLIENT_ID;
-} else {
-    console.log('dev');
-}
+const CLIENT_ID = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development')
+    ? secrets.CLIENT_ID
+    : await fetch('/.netlify/functions/getKey').then((res) => res.json()).then((res) => res.CLIENT_ID);
 
 export default function Spotify({
     loggedIn,
