@@ -85,7 +85,7 @@ export default function App() {
         </label>
       </div>
     </div>
-    <div className="row justify-content-center mobileView">
+    <div className="row justify-content-center mx-3 mobileView">
       { mobileOption === 'Results' && resultsPane}
       { mobileOption === 'New list' && newPlaylistPane}
       { mobileOption === 'Saved lists' && savedPlaylistPane}

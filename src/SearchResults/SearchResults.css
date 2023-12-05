@@ -1,7 +1,7 @@
 .searchresults {
     background-color: rgba(100, 0, 100, 0.75);
     color: #eeeeee;
-    max-width: 450px;
+    max-width: 500px;
 }
 
 #prevPage, #nextPage {

@@ -51,7 +51,7 @@ export default function SearchBar({setSearchTerm, setPage}) {
     }
   }
   return (
-    <section className="searchBar text-center mx-auto">
+    <section className="searchBar col text-center">
         <div>{toggleBtn}<input type="text" id="searchInput" placeholder='Search'
         onKeyDown={e => triggerSearch(e.key)} /></div>
         {showDetails && expandedSearch}

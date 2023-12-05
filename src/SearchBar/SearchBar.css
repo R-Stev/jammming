@@ -3,7 +3,7 @@
     justify-content: center; */
     padding: 16px 0;
     background-color: rgba(100, 0, 100, 0.75);
-    width: 450px;
+    max-width: 500px;
 }
 
 .searchBar input[type=text] {

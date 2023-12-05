@@ -5,12 +5,27 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('../public/backgroundSpeaker.jpg');
+  background-color: #222222;
+  background-image: url('../public/backgroundSpeaker2.webp');
   background-size:cover;
   background-repeat: no-repeat;
+  background-position-x: center;
+  min-height: 100vh;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@media only screen and (min-width: 960px) {
+  body {
+    background-image: url('../public/backgroundSpeaker.webp');
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  body {
+    background-size: 1920px 2359px;
+  }
 }
