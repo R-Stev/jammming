@@ -1,0 +1,5 @@
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    Content-Security-Policy-Report-Only = "default-src https://spotify-playlist-manage.netlify.app/"
