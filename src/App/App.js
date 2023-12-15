@@ -1,4 +1,5 @@
 import './App.css';
+import '../utils/fontawesome-svg-core-styles.css';
 import NewPlaylist from '../NewPlaylist/NewPlaylist.js';
 import SavedLists from '../SavedLists/SavedLists.js';
 import SearchBar from '../SearchBar/SearchBar.js'

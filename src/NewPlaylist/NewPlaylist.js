@@ -3,6 +3,8 @@ import './NewPlaylist.css';
 import Tracklist from '../Tracklist/Tracklist.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { config } from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = false
 
 export default function NewPlaylist({
   onRemove, tracks, setPlaylistTracks, setPlaylistDetails, oldPlaylist, setOldPlaylist, setTrackUris, playlistDetails

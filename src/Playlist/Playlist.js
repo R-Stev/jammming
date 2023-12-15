@@ -3,6 +3,8 @@ import './Playlist.css';
 import Track from '../Track/Track.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faAngleRight, faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { config } from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = false
 
 export default function Playlist({setConfirm, pl, setPlaylistTracks, setOldPlaylist}) {
     const [showDetails, setShowDetails] = useState(false);

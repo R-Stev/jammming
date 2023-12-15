@@ -1,9 +1,10 @@
 import './SearchResults.css';
 import Tracklist from '../Tracklist/Tracklist.js'
 import {useEffect} from 'react';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { config } from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = false
 
 export default function SearchResults({onAdd, results, page, setPage, searchLength}) {
   const pageMax = Math.ceil(searchLength / 20);

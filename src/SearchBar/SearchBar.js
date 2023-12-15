@@ -2,6 +2,8 @@ import {useState} from 'react';
 import './SearchBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { config } from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = false
 
 export default function SearchBar({setSearchTerm, setPage}) {
   const [showDetails, setShowDetails] = useState(false);

@@ -1,6 +1,8 @@
 import './Track.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
+import { config } from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = false
 
 export default function Track({onAdd, onRemove, track, mode}) {
   function addTrack() {
