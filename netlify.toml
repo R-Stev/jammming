@@ -2,7 +2,7 @@
   for = "/*"
   [headers.values]
     Content-Security-Policy-Report-Only = "default-src https://spotify-playlist-manage.netlify.app/"
-    Permissions-Policy ="camera=(), display-capture=(), geolocation=(), microphone=(), payment=(), usb=()"
-    Referrer-Policy: "no-referrer"
+    Permissions-Policy = "camera=(), display-capture=(), geolocation=(), microphone=(), payment=(), usb=()"
+    Referrer-Policy = "no-referrer"
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"
