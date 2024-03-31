@@ -22,3 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 secrets.json
+
+.next
+next-env.d.ts
+dist
