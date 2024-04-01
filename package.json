@@ -16,13 +16,8 @@
   "scripts": {
     "start": "next start",
     "build": "next build",
-    "dev": "next dev"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "dev": "next dev",
+    "lint": "next lint"
   },
   "browserslist": {
     "production": [
@@ -35,5 +30,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.1.4"
   }
 }

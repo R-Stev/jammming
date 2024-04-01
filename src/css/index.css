@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #222222;
-  background-image: url('../public/backgroundSpeaker2.webp');
+  background-image: url('../../public/backgroundSpeaker2.webp');
   background-size:cover;
   background-repeat: no-repeat;
   background-position-x: center;
@@ -20,7 +20,7 @@ code {
 
 @media only screen and (min-width: 960px) {
   body {
-    background-image: url('../public/backgroundSpeaker.webp');
+    background-image: url('../../public/backgroundSpeaker.webp');
   }
 }
 
