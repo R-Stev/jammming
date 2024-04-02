@@ -15,18 +15,6 @@ export default function NewPlaylist({
     aria-label="Toggle details" onClick={() => toggleDetails()}>
       <FontAwesomeIcon icon={showDetails ? faAngleDown : faAngleRight} />
   </button>;
-  const expandedNew = <div>
-    <div>
-      <input type="text" id="descriptionInput" placeholder='Description (optional)' />
-    </div>
-    <div>
-      <input type="checkbox" id="privateCheck" name="Private" value="privatePlaylist" />
-      <label for="privatePlaylist">Private</label>
-      <input type="checkbox" id="collabCheck" name="Collaborative" value="collabPlaylist"
-        onChange={toggleCollab} />
-      <label for="privatePlaylist">Collaborative</label>
-    </div>
-  </div>;
 
   // useEffect(() => {
   //   if(oldPlaylist){
@@ -38,10 +26,8 @@ export default function NewPlaylist({
   //   }
   // }, [oldPlaylist, showDetails]);
 
-  const [prevDetails, setPrevDetails] = useState(showDetails);
   const [prevPlaylist, setPrevPlaylist] = useState(oldPlaylist);
-  if (showDetails !== prevDetails || oldPlaylist !== prevPlaylist) {
-    setPrevDetails(showDetails);
+  if (oldPlaylist !== prevPlaylist) {
     setPrevPlaylist(oldPlaylist);
     if(oldPlaylist){
       (oldPlaylist === 'clear') ? clearPlaylist() : setDetailElements(oldPlaylist);
@@ -50,6 +36,11 @@ export default function NewPlaylist({
 
 
   function toggleDetails() {
+    if(showDetails){
+      document.getElementById("expandedDetails").style.display = "none";
+    } else {
+      document.getElementById("expandedDetails").style.display = "block";
+    }
     setShowDetails(!showDetails);
   }
   function toggleCollab() {
@@ -70,12 +61,10 @@ export default function NewPlaylist({
   }
   function setDetailElements(elem) {
     document.getElementById("playlistTitleInput").value = elem.name;
-    if(showDetails){
-      document.getElementById("descriptionInput").value = elem.description;
-      document.querySelector("#privateCheck").checked = !elem.public;
-      document.querySelector("#privateCheck").disabled = elem.collaborative;
-      document.querySelector("#collabCheck").checked = elem.collaborative;  
-    }
+    document.getElementById("descriptionInput").value = elem.description;
+    document.querySelector("#privateCheck").checked = !elem.public;
+    document.querySelector("#privateCheck").disabled = elem.collaborative;
+    document.querySelector("#collabCheck").checked = elem.collaborative;  
   }
   function savePlaylist() {
     const uris = tracks.map((track) => track.uri);
@@ -108,9 +97,23 @@ export default function NewPlaylist({
   return (
     <section className="playlist col my-3" data-testid="playlist">
       <div className="my-2 text-center">
-        <div>{toggleBtn}<input type="text" id="playlistTitleInput" placeholder="New Playlist"
-            onKeyDown={e => triggerPlaylist(e.key)} /></div>
-        {showDetails && expandedNew}
+        <div>
+          {toggleBtn}
+          <input type="text" id="playlistTitleInput" placeholder="New Playlist"
+            onKeyDown={e => triggerPlaylist(e.key)} />
+        </div>
+        <div id="expandedDetails">
+          <div>
+            <input type="text" id="descriptionInput" placeholder='Description (optional)' />
+          </div>
+          <div>
+            <input type="checkbox" id="privateCheck" name="Private" value="privatePlaylist" />
+            <label htmlFor="privatePlaylist">Private</label>
+            <input type="checkbox" id="collabCheck" name="Collaborative" value="collabPlaylist"
+              onChange={toggleCollab} />
+            <label htmlFor="privatePlaylist">Collaborative</label>
+          </div>
+        </div>
       </div>
         <Tracklist tracklist={tracks}
         onRemove={onRemove}

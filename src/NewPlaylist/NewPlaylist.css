@@ -16,6 +16,10 @@
     margin-right: 32px;
 }
 
+#expandedDetails {
+    display: none;
+}
+
 .toggleClosed {
     padding: 3px 10px;
 }
