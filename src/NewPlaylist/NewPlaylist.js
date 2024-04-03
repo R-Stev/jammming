@@ -96,7 +96,7 @@ export default function NewPlaylist({
   }
   return (
     <section className="playlist col my-3" data-testid="playlist">
-      <div className="my-2 text-center">
+      <div className="my-1 text-center">
         <div>
           {toggleBtn}
           <input type="text" id="playlistTitleInput" placeholder="New Playlist"
@@ -118,12 +118,12 @@ export default function NewPlaylist({
         <Tracklist tracklist={tracks}
         onRemove={onRemove}
         mode='remove' />
-        <p className="text-center mt-1">
-          <button type="button" className="btn btn-light mr-1"
+        <div className="my-1 text-center">
+          <button type="button" className="btn btn-outline-light mx-1"
           onClick={savePlaylist}>Save to Spotify</button>
-          <button type="button" className="btn btn-light"
+          <button type="button" className="btn btn-outline-light mx-1"
           onClick={clearPlaylist}>Clear</button>
-        </p>
+        </div>
     </section>
   );
 }

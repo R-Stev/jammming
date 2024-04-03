@@ -53,14 +53,21 @@ export default function SearchBar({setSearchTerm, setPage}) {
     }
   }
   return (
-    <section className="searchBar col text-center">
-        <div>{toggleBtn}<input type="text" id="searchInput" placeholder='Search'
-        onKeyDown={e => triggerSearch(e.key)} /></div>
-        {showDetails && expandedSearch}
-        <div className="mt-1"><button type="button" className="btn btn-light mr-1" aria-label='search'
-        onClick={makeSearch}>Search</button>
-        <button type="button" className="btn btn-light" aria-label='clear'
-        onClick={clearSearch}>Clear</button></div>
+    <section className="searchBar col my-3">
+        <div className="my-1 text-center">
+          <div>
+            {toggleBtn}
+            <input type="text" id="searchInput" placeholder='Search'
+            onKeyDown={e => triggerSearch(e.key)} />
+          </div>
+          {showDetails && expandedSearch}
+        </div>
+        <div className="my-1 text-center">
+          <button type="button" className="btn btn-outline-light mx-1" aria-label='search'
+          onClick={makeSearch}>Search</button>
+          <button type="button" className="btn btn-outline-light mx-1" aria-label='clear'
+          onClick={clearSearch}>Clear</button>
+        </div>
     </section>
   );
 }

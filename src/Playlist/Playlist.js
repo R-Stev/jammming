@@ -49,7 +49,7 @@ export default function Playlist({setConfirm, pl, setPlaylistTracks, setOldPlayl
                         <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
                 </div>
-                <div className="mr-3">
+                <div className="ml-1 mr-3">
                     <button type="button" className="btn btn-outline-light deletePlaylist" aria-label="Delete playlist" data-testid={'Delete ' + pl.name} onClick={() => confirmDeletion(pl.name, pl.id)}>
                         <FontAwesomeIcon icon={faTrashCan} />
                     </button>

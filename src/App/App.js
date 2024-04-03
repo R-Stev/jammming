@@ -70,18 +70,18 @@ export default function App() {
         setPlaylistTracks={setPlaylistTracks} setOldPlaylist={setOldPlaylist} />;
 
   const userLoggedIn = <main className="appBody">
-    <div className="row m-3 justify-content-center">
+    <div className="row mx-3 justify-content-center">
       <SearchBar setSearchTerm={setSearchTerm} setPage={setPage} />
     </div>
     <div className="btn-toolbar justify-content-center mobileView py-3" role="toolbar">
       <div className="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" role="group">
-        <label className="btn btn-light active">
+        <label className="btn btn-outline-light active">
           <input type="radio" name="options" id="option1" value="Results" onChange={changeOptions} />Search Results
         </label>
-        <label className="btn btn-light">
+        <label className="btn btn-outline-light">
           <input type="radio" name="options" id="option2" value="New list" onChange={changeOptions} />New Playlist ({playlistTracks.length})
         </label>
-        <label className="btn btn-light">
+        <label className="btn btn-outline-light">
           <input type="radio" name="options" id="option3" value="Saved lists" onChange={changeOptions} />Saved Playlists
         </label>
       </div>

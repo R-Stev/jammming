@@ -399,9 +399,9 @@ export default function Spotify({
         window.location.reload();
     }
 
-    const loginButton = <button type="button" className="btn btn-light mr-3"
+    const loginButton = <button type="button" className="btn btn-outline-light mr-3"
             onClick={redirectToSpotifyAuth}>Login</button>;
-    const logoutButton = <button type="button" className="btn btn-light mr-3"
+    const logoutButton = <button type="button" className="btn btn-outline-light mr-3"
             onClick={logout}>Logout</button>;
 return (
     <div>
