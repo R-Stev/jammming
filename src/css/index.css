@@ -7,9 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #222222;
   background-image: url('../../public/backgroundSpeaker2.webp');
-  background-size:cover;
+  background-size: auto 100vh;
   background-repeat: no-repeat;
   background-position-x: center;
+  background-position-y: center;
   min-height: 100vh;
 }
 
@@ -20,12 +21,7 @@ code {
 
 @media only screen and (min-width: 960px) {
   body {
+    background-size: auto max(85vw, 100vh);
     background-image: url('../../public/backgroundSpeaker.webp');
-  }
-}
-
-@media only screen and (min-width: 1920px) {
-  body {
-    background-size: 1920px 2359px;
   }
 }
