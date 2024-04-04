@@ -1,7 +1,6 @@
 import Script from 'next/script'
 import '../css/normalize.css' // @csstools/Normalize CSS 12.1.1
 import '../css/bootstrap.min.css' // Bootstrap CSS 4.6.2
-import '../css/index.css'
 
 export const metadata = {
     title: 'React App',
