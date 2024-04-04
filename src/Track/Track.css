@@ -11,9 +11,15 @@
 }
 
 .trackTextBtn {
-    max-width: min(calc(50vw - 96px), 386px);
+    max-width: 80%;
 }
 
 .trackBtn {
     padding: 3px 8px;
+}
+
+@media only screen and (min-width: 701px) {
+    .trackTextBtn {
+        max-width: min(calc(50vw - 96px), 400px);
+    }
 }
