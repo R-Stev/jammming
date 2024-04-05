@@ -31,6 +31,14 @@ body {
   text-align: center;
 }
 
+.loggedOut {
+  background-color: rgba(100, 0, 100, 0.75);
+  color: #eeeeee;
+  margin-top: calc(35vh - 100px);
+  padding: 16px 0;
+  max-width: 500px;
+}
+
 @media only screen and (max-width: 700px) {
   .desktopView {
     display: none;

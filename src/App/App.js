@@ -112,6 +112,15 @@ export default function App() {
         }} />}
       </div>
   </main>;
+  const userNotLoggedIn = <main className="appBody">
+    <div className="row justify-content-center">
+      <div className="loggedOut col px-4 text-center">
+        <h1 className="mb-3">Spotify playlist management</h1>
+        <div>This site allows you to manage your Spotify playlists.</div>
+        <div>Search for tracks, edit existing playlists, delete them entirely, or create new ones.</div>
+      </div>
+    </div>
+  </main>
 
   return (
     <div className="App">
@@ -135,7 +144,7 @@ export default function App() {
         oldPlaylist={oldPlaylist}
         setOldPlaylist={setOldPlaylist} />
       </header>
-      {loggedIn && userLoggedIn}
+      {loggedIn ? userLoggedIn : userNotLoggedIn}
     </div>
   );
 }
