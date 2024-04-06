@@ -10,7 +10,6 @@ import {useState} from 'react';
 // Background image sourced from https://unsplash.com/photos/64xuU5SvR0s
 
 /* Todo:
-  add playlist pages, similar to the search results
   get the list of tracks in a playlist only on request?
   add handling for HTTP 429 rate limiting?
   convert to using redux?
@@ -24,12 +23,14 @@ export default function App() {
   const [playlistTracks, setPlaylistTracks] = useState([]); // The list of tracks displayed in NewPlaylist
   const [playlistDetails, setPlaylistDetails] = useState(null); // The play list name used in NewPlaylist
   const [savedPlaylists, setSavedPlaylists] = useState([]); // The list of playlists displayed in SavedLists
-  const [page, setPage] = useState(1); // The page number used in SearchResults
+  const [searchPage, setSearchPage] = useState(1); // The page number used in SearchResults
+  const [playlistPage, setPlaylistPage] = useState(1); // The page number used in SavedLists
   const [trackUris, setTrackUris] = useState([]); // The list of track URIs from NewPlaylist
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('refresh_token') !== null);
   const [playlistToConfirm, setPlaylistToConfirm] = useState(null); // The playlist ID to confirm deletion
   const [playlistToDelete, setPlaylistToDelete] = useState(null); // The playlist ID to be deleted
   const [searchLength, setSearchLength] = useState(0); // The length of the Spotify search results, used in SearchResults
+  const [playlistLength, setPlaylistLength] = useState(0); // The length of the Spotify playlist results, used in SavedLists
   const [oldPlaylist, setOldPlaylist] = useState(null); // The initial playlist details for comparison if an existing playlist is edited
 
   function addToPlaylist(item) {
@@ -55,8 +56,8 @@ export default function App() {
 
   const resultsPane = <SearchResults results={searchResults}
         onAdd={addToPlaylist}
-        page={page}
-        setPage={setPage}
+        searchPage={searchPage}
+        setSearchPage={setSearchPage}
         searchLength={searchLength} />;
   const newPlaylistPane = <NewPlaylist tracks={playlistTracks}
         onRemove={removeFromPlaylist}
@@ -66,12 +67,17 @@ export default function App() {
         setOldPlaylist = {setOldPlaylist}
         setTrackUris={setTrackUris}
         playlistDetails={playlistDetails} />;
-  const savedPlaylistPane = <SavedLists setConfirm={setPlaylistToConfirm} savedPlaylists={savedPlaylists}
-        setPlaylistTracks={setPlaylistTracks} setOldPlaylist={setOldPlaylist} />;
+  const savedPlaylistPane = <SavedLists setConfirm={setPlaylistToConfirm}
+        playlistPage={playlistPage}
+        setPlaylistPage={setPlaylistPage}
+        playlistLength={playlistLength}
+        savedPlaylists={savedPlaylists}
+        setPlaylistTracks={setPlaylistTracks}
+        setOldPlaylist={setOldPlaylist} />;
 
   const userLoggedIn = <main className="appBody">
     <div className="row mx-3 justify-content-center">
-      <SearchBar setSearchTerm={setSearchTerm} setPage={setPage} />
+      <SearchBar setSearchTerm={setSearchTerm} setSearchPage={setSearchPage} />
     </div>
     <div className="btn-toolbar justify-content-center mobileView py-3" role="toolbar">
       <div className="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" role="group">
@@ -139,8 +145,10 @@ export default function App() {
         setTrackUris={setTrackUris}
         playlistToDelete={playlistToDelete}
         setPlaylistToDelete={setPlaylistToDelete}
-        page={page}
+        searchPage={searchPage}
+        playlistPage={playlistPage}
         setSearchLength={setSearchLength}
+        setPlaylistLength={setPlaylistLength}
         oldPlaylist={oldPlaylist}
         setOldPlaylist={setOldPlaylist} />
       </header>

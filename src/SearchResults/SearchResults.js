@@ -6,19 +6,19 @@ import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false
 
-export default function SearchResults({onAdd, results, page, setPage, searchLength}) {
+export default function SearchResults({onAdd, results, searchPage, setSearchPage, searchLength}) {
   const [prevPageDisabled, setPrevPageDisabled] = useState(true);
   const [nextPageDisabled, setNextPageDisabled] = useState(true);
   const pageMax = Math.max(Math.ceil(searchLength / 20),1);
   useEffect(() => {
-    console.log(`Searchresults page effect: ${page} ${pageMax}`);
-    setPrevPageDisabled(page == 1);
-    setNextPageDisabled(page == pageMax);
-  }, [page, pageMax]);
+    console.log(`Searchresults page effect: ${searchPage} ${pageMax}`);
+    setPrevPageDisabled(searchPage == 1);
+    setNextPageDisabled(searchPage == pageMax);
+  }, [searchPage, pageMax]);
   function changePage(dir) {
-    let newPage = (dir === 'prev' ? page - 1 : page + 1);
+    let newPage = (dir === 'prev' ? searchPage - 1 : searchPage + 1);
     if(newPage >= 1 && newPage <= pageMax){
-      setPage(newPage);
+      setSearchPage(newPage);
     }
   }
   return (
@@ -32,7 +32,7 @@ export default function SearchResults({onAdd, results, page, setPage, searchLeng
           disabled={prevPageDisabled} aria-label="Previous page" onClick={() => changePage('prev')}>
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
-          <div className="px-3 my-auto">{page}</div>
+          <div className="px-3 my-auto">{searchPage}</div>
           <button type="button" className="btn btn-outline-light" id="nextPage"
           disabled={nextPageDisabled} aria-label="Next page" onClick={() => changePage('next')}>
             <FontAwesomeIcon icon={faArrowRight} />

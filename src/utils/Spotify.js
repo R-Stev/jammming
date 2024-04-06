@@ -14,7 +14,8 @@ export default function Spotify({
     loggedIn,
     setLoggedIn,
     term,
-    page,
+    searchPage,
+    playlistPage,
     setSearchTerm,
     setSearchResults,
     playlistDetails,
@@ -26,50 +27,39 @@ export default function Spotify({
     playlistToDelete,
     setPlaylistToDelete,
     setSearchLength,
+    setPlaylistLength,
     oldPlaylist,
     setOldPlaylist
 }) {
-    // useEffect(() => {
-    //     const fetchResult = async () => {
-    //         if(term){
-    //             const result = await search(term, page);
-    //             if(result){
-    //                 setSearchResults(result);
-    //             }
-    //         }    
-    //     }
-    //     fetchResult();
-    // }, [term, page]);
 
     const [prevTerm, setPrevTerm] = useState(term);
-    const [prevPage, setPrevPage] = useState(page);
-    if (term !== prevTerm || page !== prevPage) {
+    const [prevSearchPage, setPrevSearchPage] = useState(searchPage);
+    if (term !== prevTerm || searchPage !== prevSearchPage) {
         setPrevTerm(term);
-        setPrevPage(page);
-        const fetchResult = async () => {
+        setPrevSearchPage(searchPage);
+        const fetchSearchResult = async () => {
             if(term){
-                const result = await search(term, page);
+                const result = await search(term, searchPage);
                 if(result){
                     setSearchResults(result);
                 }
             }    
         }
-        fetchResult();
+        fetchSearchResult();
     }
 
+    const [prevPlaylistPage, setPrevPlaylistPage] = useState(playlistPage);
+    if (playlistPage !== prevPlaylistPage) {
+        setPrevPlaylistPage(playlistPage);
+        const fetchPlaylistResult = async () => {
+            const result = await readPlaylists(playlistPage);
+            if(result){
+                setSavedPlaylists(result);
+            }
+        }
+        fetchPlaylistResult();
+    }
 
-    // useEffect(() => {
-    //     const playlistEdits = async () => {
-    //         if(playlistDetails){
-    //             if(oldPlaylist){
-    //                 await savePlaylist(playlistDetails, trackUris, oldPlaylist)
-    //             } else {await savePlaylist(playlistDetails, trackUris)}
-    //             refreshPlaylists();
-    //         }
-    //     }
-    //     playlistEdits()
-    // }, [playlistDetails, trackUris]);
-    
     const [prevDetails, setPrevDetails] = useState(playlistDetails);
     const [prevUris, setPrevUris] = useState(trackUris);
     if (playlistDetails !== prevDetails || trackUris !== prevUris) {
@@ -86,23 +76,11 @@ export default function Spotify({
         playlistEdits();
     }
 
-    // useEffect(() => {
-    //     refreshPlaylists();
-    // }, [loggedIn]);
-
     const [prevLogin, setPrevLogin] = useState(false);
     if (loggedIn !== prevLogin) {
       setPrevLogin(loggedIn);
       refreshPlaylists();
     }
-
-    // useEffect(() => {
-    //     if(playlistToDelete){
-    //         console.log(playlistToDelete);
-    //         deletePlaylist(playlistToDelete);
-    //         setPlaylistToDelete(null);
-    //     }
-    // }, [playlistToDelete])
 
     const [prevDeletion, setPrevDeletion] = useState(playlistToDelete);
     if(playlistToDelete !== prevDeletion) {
@@ -237,11 +215,11 @@ export default function Spotify({
         return token;
     }
     
-    async function search(term, page) {
-        console.log(`search(${term}, ${page})`);
+    async function search(term, searchPage) {
+        console.log(`search(${term}, ${searchPage})`);
         // setSearchTerm(null);
         const accessToken = await getAccessToken();
-        return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}&offset=${(page-1)*20}`, {
+        return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}&offset=${(searchPage-1)*20}`, {
             headers: { Authorization: `Bearer ${accessToken}` }
         }).then(response => {
             if (!response.ok) {
@@ -325,10 +303,10 @@ export default function Spotify({
         });
     }
     // TODO add playlist pages, similar to the search results
-    async function readPlaylists() {
+    async function readPlaylists(playlistPage) {
         console.log(`readPlaylists()`);
         const accessToken = await getAccessToken();
-        let playlists = await fetch('https://api.spotify.com/v1/me/playlists', {
+        let playlists = await fetch(`https://api.spotify.com/v1/me/playlists?offset=${(playlistPage-1)*10}&limit=10`, {
             headers: { Authorization: `Bearer ${accessToken}` }
         }).then(response => {
             return response.json();
@@ -336,6 +314,7 @@ export default function Spotify({
             if (!jsonResponse.items) {
                 return [];
             }
+            setPlaylistLength(jsonResponse.total);
             return jsonResponse.items.map(item => ({
                 key: item.id,
                 id: item.id,
@@ -389,7 +368,7 @@ export default function Spotify({
     }
     async function refreshPlaylists(){
         if(loggedIn){
-            const result = await readPlaylists();
+            const result = await readPlaylists(1);
             setSavedPlaylists(result);
         }
     }

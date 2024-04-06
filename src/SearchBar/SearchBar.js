@@ -5,7 +5,7 @@ import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false
 
-export default function SearchBar({setSearchTerm, setPage}) {
+export default function SearchBar({setSearchTerm, setSearchPage}) {
   const [showDetails, setShowDetails] = useState(false);
   const toggleBtn = <button type="button" className={'btn btn-outline-light ' + (showDetails ? 'toggleOpen' : 'toggleClosed')} id="toggleDetails"
   aria-label="Toggle details" onClick={() => toggleDetails()}>
@@ -40,7 +40,7 @@ export default function SearchBar({setSearchTerm, setPage}) {
     const searchTerm = [generalTerm, trackTerm, artistTerm, albumTerm, yearTerm].filter(Boolean).join(" ").replaceAll(" ", "%20");
     if (searchTerm.length > 0){
       setSearchTerm(searchTerm);
-      setPage(1);
+      setSearchPage(1);
     }
   }
   function clearSearch() {
