@@ -1,8 +1,8 @@
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Content-Security-Policy = "default-src https://spotify-playlist-manage.netlify.app/ https://*.spotify.com/; script-src https://spotify-playlist-manage.netlify.app/ https://cdn.jsdelivr.net/npm/; style-src https://spotify-playlist-manage.netlify.app/ https://cdn.jsdelivr.net/npm/ https://unpkg.com/@csstools/"
-    Permissions-Policy = "camera=(), display-capture=(), geolocation=(), microphone=(), payment=(), usb=()"
-    Referrer-Policy = "no-referrer"
-    X-Content-Type-Options = "nosniff"
-    X-Frame-Options = "DENY"
+# [[headers]]
+#   for = "/*"
+#   [headers.values]
+#     Content-Security-Policy = "default-src https://spotify-playlist-manage.netlify.app/ https://*.spotify.com/; script-src https://spotify-playlist-manage.netlify.app/ https://cdn.jsdelivr.net/npm/; style-src https://spotify-playlist-manage.netlify.app/ https://cdn.jsdelivr.net/npm/ https://unpkg.com/@csstools/"
+#     Permissions-Policy = "camera=(), display-capture=(), geolocation=(), microphone=(), payment=(), usb=()"
+#     Referrer-Policy = "no-referrer"
+#     X-Content-Type-Options = "nosniff"
+#     X-Frame-Options = "DENY"
