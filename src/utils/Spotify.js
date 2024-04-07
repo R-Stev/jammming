@@ -29,7 +29,9 @@ export default function Spotify({
     setSearchLength,
     setPlaylistLength,
     oldPlaylist,
-    setOldPlaylist
+    setOldPlaylist,
+    playlistTrackReq,
+    setPlaylistTrackReq
 }) {
 
     const [prevTerm, setPrevTerm] = useState(term);
@@ -90,6 +92,23 @@ export default function Spotify({
             deletePlaylist(playlistToDelete);
             setPlaylistToDelete(null);
         }
+    }
+
+    const [prevPlReq, setPrevPlReq] = useState(playlistTrackReq)
+    if(playlistTrackReq !== prevPlReq) {
+        const playlistRequest = async () => {
+            setPrevPlReq(playlistTrackReq);
+            if(playlistTrackReq){
+                const accessToken = await getAccessToken();
+                const plTrackRes = await readPlaylistTracks(playlistTrackReq, accessToken);
+                let plCopy = savedPlaylists;
+                let plIndex = savedPlaylists.findIndex(pl => pl.href == playlistTrackReq);
+                plCopy[plIndex].tracks = plTrackRes;
+                setSavedPlaylists(plCopy);
+                setPlaylistTrackReq(null);
+            }
+        }
+        playlistRequest();
     }
 
     // Authorization Code with PKCE Flow
@@ -302,7 +321,6 @@ export default function Spotify({
             }
         });
     }
-    // TODO add playlist pages, similar to the search results
     async function readPlaylists(playlistPage) {
         console.log(`readPlaylists()`);
         const accessToken = await getAccessToken();
@@ -326,10 +344,10 @@ export default function Spotify({
                 tracks: []
             }));
         });
-        for(let i in playlists){
-            const tracks = await readPlaylistTracks(playlists[i].href, accessToken);
-            playlists[i].tracks = tracks;
-        }
+        // for(let i in playlists){
+        //     const tracks = await readPlaylistTracks(playlists[i].href, accessToken);
+        //     playlists[i].tracks = tracks;
+        // }
         return playlists;
     }
     async function readPlaylistTracks(href, accessToken){

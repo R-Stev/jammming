@@ -6,7 +6,7 @@ import { faAngleDown, faAngleRight, faTrashCan, faPenToSquare } from '@fortaweso
 import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false
 
-export default function Playlist({setConfirm, pl, setPlaylistTracks, setOldPlaylist}) {
+export default function Playlist({setConfirm, pl, setPlaylistTracks, setOldPlaylist, setPlaylistTrackReq}) {
     const [showDetails, setShowDetails] = useState(false);
     const toggleBtn = <button type="button" className={'btn btn-outline-light ' + (showDetails ? 'toggleOpen' : 'toggleClosed')} id="toggleDetails"
     aria-label="Toggle details" onClick={() => toggleDetails()}>
@@ -19,6 +19,9 @@ export default function Playlist({setConfirm, pl, setPlaylistTracks, setOldPlayl
       });
     function toggleDetails() {
         setShowDetails(!showDetails);
+        if(!showDetails && pl.tracks.length == 0){
+            setPlaylistTrackReq(pl.href);
+        }
     }
     function editPlaylist(pl) {
         console.log(pl);

@@ -32,7 +32,8 @@ export default function App() {
   const [searchLength, setSearchLength] = useState(0); // The length of the Spotify search results, used in SearchResults
   const [playlistLength, setPlaylistLength] = useState(0); // The length of the Spotify playlist results, used in SavedLists
   const [oldPlaylist, setOldPlaylist] = useState(null); // The initial playlist details for comparison if an existing playlist is edited
-
+  const [playlistTrackReq, setPlaylistTrackReq] = useState(null); // The requested playlist href to read the included tracks
+  
   function addToPlaylist(item) {
     let items = [...playlistTracks];
     if (items.find(newItem => newItem.id === item.id)) {
@@ -73,7 +74,8 @@ export default function App() {
         playlistLength={playlistLength}
         savedPlaylists={savedPlaylists}
         setPlaylistTracks={setPlaylistTracks}
-        setOldPlaylist={setOldPlaylist} />;
+        setOldPlaylist={setOldPlaylist}
+        setPlaylistTrackReq={setPlaylistTrackReq} />;
 
   const userLoggedIn = <main className="appBody">
     <div className="row mx-3 justify-content-center">
@@ -150,7 +152,9 @@ export default function App() {
         setSearchLength={setSearchLength}
         setPlaylistLength={setPlaylistLength}
         oldPlaylist={oldPlaylist}
-        setOldPlaylist={setOldPlaylist} />
+        setOldPlaylist={setOldPlaylist}
+        playlistTrackReq={playlistTrackReq}
+        setPlaylistTrackReq={setPlaylistTrackReq} />
       </header>
       {loggedIn ? userLoggedIn : userNotLoggedIn}
     </div>
