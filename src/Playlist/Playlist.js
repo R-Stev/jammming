@@ -24,7 +24,6 @@ export default function Playlist({setConfirm, pl, setPlaylistTracks, setOldPlayl
         }
     }
     function editPlaylist(pl) {
-        console.log(pl);
         setPlaylistTracks(pl.tracks);
         setOldPlaylist({
             id: pl.id,
@@ -40,7 +39,6 @@ export default function Playlist({setConfirm, pl, setPlaylistTracks, setOldPlayl
             name: name,
             id: id
         })
-        console.log(`delete ${name}, ${id}`);
     }
     return (
         <div className="my-2" data-testid={'SavedList ' + pl.name}>

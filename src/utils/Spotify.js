@@ -88,7 +88,6 @@ export default function Spotify({
     if(playlistToDelete !== prevDeletion) {
         setPrevDeletion(playlistToDelete);
         if(playlistToDelete){
-            console.log(playlistToDelete);
             deletePlaylist(playlistToDelete);
             setPlaylistToDelete(null);
         }
@@ -113,7 +112,6 @@ export default function Spotify({
 
     // Authorization Code with PKCE Flow
     function redirectToSpotifyAuth() {
-        console.log('redirectToSpotifyAuth()');
         let codeVerifier = generateRandomString(128);
         
         generateCodeChallenge(codeVerifier).then(codeChallenge => {
@@ -185,7 +183,6 @@ export default function Spotify({
         console.log('error: ', error);
     }
     async function exchangeToken(body) {
-        console.log(`exchangeToken(${body.get('grant_type')})`);
         return fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
             headers: {
@@ -226,7 +223,6 @@ export default function Spotify({
                 });
         
                 token = await exchangeToken(body);
-                console.log(`gRT: ${token}`);
             } else {
                 throw new Error('User not logged in.');
             }
@@ -235,7 +231,6 @@ export default function Spotify({
     }
     
     async function search(term, searchPage) {
-        console.log(`search(${term}, ${searchPage})`);
         // setSearchTerm(null);
         const accessToken = await getAccessToken();
         return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}&offset=${(searchPage-1)*20}`, {
@@ -249,7 +244,6 @@ export default function Spotify({
             if (!jsonResponse.tracks) {
                 return [];
             }
-            console.log(`total: ${jsonResponse.tracks.total}`);
             setSearchLength(jsonResponse.tracks.total);
             return jsonResponse.tracks.items.map(track => ({
                 key: track.id,
@@ -262,7 +256,6 @@ export default function Spotify({
         });
     }
     async function savePlaylist(details, trackUris, oldPlaylist = null) {
-        console.log(`savePlaylist(${details}, ${trackUris}, ${oldPlaylist})`);
         if (!details.name || !trackUris.length) {
             return;
         }
@@ -298,7 +291,6 @@ export default function Spotify({
         }
     }
     async function savePlaylistTracks(playlistId, trackUris, headers) {
-        console.log(`savePlaylistTracks()`);
         return fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
             headers: headers,
             method: 'PUT',
@@ -310,7 +302,6 @@ export default function Spotify({
         });
     }
     async function savePlaylistDetails(playlistId, headers, details) {
-        console.log(`savePlaylistDetails()`);
         return fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
             headers: headers,
             method: 'PUT',
@@ -322,7 +313,6 @@ export default function Spotify({
         });
     }
     async function readPlaylists(playlistPage) {
-        console.log(`readPlaylists()`);
         const accessToken = await getAccessToken();
         let playlists = await fetch(`https://api.spotify.com/v1/me/playlists?offset=${(playlistPage-1)*10}&limit=10`, {
             headers: { Authorization: `Bearer ${accessToken}` }
@@ -351,7 +341,6 @@ export default function Spotify({
         return playlists;
     }
     async function readPlaylistTracks(href, accessToken){
-        console.log(`readPlaylistTracks(${href})`);
         let tracklist = await fetch(`${href}/tracks`, {
             headers: { Authorization: `Bearer ${accessToken}` }
         }).then(response => {

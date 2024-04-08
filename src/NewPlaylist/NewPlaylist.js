@@ -81,7 +81,6 @@ export default function NewPlaylist({
     if(!name || !uris.length){
       console.error(`Saving a playlist requires both a name, and at least one track.`)
     } else {
-      console.log(tracks);
       setPlaylistDetails(details);
       setTrackUris(uris);
       setDetailElements({name: '', description: '', public: true, collaborative: false});
