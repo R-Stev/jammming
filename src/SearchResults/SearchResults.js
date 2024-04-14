@@ -1,4 +1,4 @@
-import './SearchResults.css';
+import style from './SearchResults.module.css';
 import Tracklist from '../Tracklist/Tracklist.js'
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -21,18 +21,18 @@ export default function SearchResults({onAdd, results, searchPage, setSearchPage
     }
   }
   return (
-    <section className="searchresults col my-3" data-testid="searchResults">
+    <section className={`${style.searchresults} col my-3`} data-testid="searchResults">
         <p className="my-2">Results</p>
         <Tracklist tracklist={results}
         onAdd={onAdd}
         mode='add' />
         <div className="row justify-content-center my-3" id="page-nav">
-          <button type="button" className="btn btn-outline-light" id="prevPage"
+          <button type="button" className="btn btn-outline-light" id={style.prevPage}
           disabled={prevPageDisabled} aria-label="Previous page" onClick={() => changePage('prev')}>
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
           <div className="px-3 my-auto">{searchPage}</div>
-          <button type="button" className="btn btn-outline-light" id="nextPage"
+          <button type="button" className="btn btn-outline-light" id={style.nextPage}
           disabled={nextPageDisabled} aria-label="Next page" onClick={() => changePage('next')}>
             <FontAwesomeIcon icon={faArrowRight} />
           </button>

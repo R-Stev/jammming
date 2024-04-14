@@ -1,6 +1,6 @@
 # Spotify playlist management
 
-This project is a client for managing your Spotify playlists, created using React, and uses [Authorization Code with PKCE](https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow) to obtain the access token.
+This project is a client for managing your Spotify playlists, created using [Next.js](https://nextjs.org/), and uses [Authorization Code with PKCE](https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow) to obtain the access token.
 
 Project features:
 - searching for tracks (with advanced options)
@@ -21,11 +21,7 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.  This opens [http://localhost:3000](http://localhost:3000) in your browser.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.  The tests cover saving and then deleting a test playlist, and require values for access_token and refresh_token to be successful.
+Runs the app in the development mode.  Then open [http://localhost:3000](http://localhost:3000) in your browser to view.
 
 ### `npm run build`
 

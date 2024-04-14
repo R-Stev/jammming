@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import './NewPlaylist.css';
+import style from './NewPlaylist.module.css';
 import Tracklist from '../Tracklist/Tracklist.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons'
@@ -11,7 +11,7 @@ export default function NewPlaylist({
 }) {
   const [showDetails, setShowDetails] = useState(false);
   const toggleBtn = <button type="button" id="toggleDetails"
-    className={'btn btn-outline-light ' + (showDetails ? 'toggleOpen' : 'toggleClosed')}
+    className={`btn btn-outline-light ` + (showDetails ? `${style.toggleOpen}` : `${style.toggleClosed}`)}
     aria-label="Toggle details" onClick={() => toggleDetails()}>
       <FontAwesomeIcon icon={showDetails ? faAngleDown : faAngleRight} />
   </button>;
@@ -37,9 +37,9 @@ export default function NewPlaylist({
 
   function toggleDetails() {
     if(showDetails){
-      document.getElementById("expandedDetails").style.display = "none";
+      document.getElementById(style.expandedDetails).style.display = "none";
     } else {
-      document.getElementById("expandedDetails").style.display = "block";
+      document.getElementById(style.expandedDetails).style.display = "block";
     }
     setShowDetails(!showDetails);
   }
@@ -60,7 +60,7 @@ export default function NewPlaylist({
     }
   }
   function setDetailElements(elem) {
-    document.getElementById("playlistTitleInput").value = elem.name;
+    document.getElementById(style.playlistTitleInput).value = elem.name;
     document.getElementById("descriptionInput").value = elem.description;
     document.querySelector("#privateCheck").checked = !elem.public;
     document.querySelector("#privateCheck").disabled = elem.collaborative;
@@ -68,7 +68,7 @@ export default function NewPlaylist({
   }
   function savePlaylist() {
     const uris = tracks.map((track) => track.uri);
-    const name = document.getElementById("playlistTitleInput").value;
+    const name = document.getElementById(style.playlistTitleInput).value;
     const description = document.getElementById("descriptionInput")?.value || '';
     const privateCheckbox = document.querySelector("#privateCheck")?.checked || false;
     const collabCheckbox = document.querySelector("#collabCheck")?.checked || false;
@@ -94,23 +94,23 @@ export default function NewPlaylist({
     setPlaylistTracks([]);
   }
   return (
-    <section className="playlist col my-3" data-testid="playlist">
-      <div className="my-1 text-center">
+    <section className={`${style.playlist} col my-3`} data-testid="playlist">
+      <div className="my-2 text-center">
         <div>
           {toggleBtn}
-          <input type="text" id="playlistTitleInput" placeholder="New Playlist"
+          <input type="text" id={style.playlistTitleInput} placeholder="New Playlist"
             onKeyDown={e => triggerPlaylist(e.key)} />
         </div>
-        <div id="expandedDetails">
+        <div id={style.expandedDetails}>
           <div>
             <input type="text" id="descriptionInput" placeholder='Description (optional)' />
           </div>
           <div>
             <input type="checkbox" id="privateCheck" name="Private" value="privatePlaylist" />
-            <label htmlFor="privatePlaylist">Private</label>
+            <label className={style.label} htmlFor="privatePlaylist">Private</label>
             <input type="checkbox" id="collabCheck" name="Collaborative" value="collabPlaylist"
               onChange={toggleCollab} />
-            <label htmlFor="privatePlaylist">Collaborative</label>
+            <label className={style.label} htmlFor="privatePlaylist">Collaborative</label>
           </div>
         </div>
       </div>

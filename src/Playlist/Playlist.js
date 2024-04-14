@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import './Playlist.css';
+import style from './Playlist.module.css';
 import Track from '../Track/Track.js'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faAngleRight, faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
@@ -8,7 +8,7 @@ config.autoAddCss = false
 
 export default function Playlist({setConfirm, pl, setPlaylistTracks, setOldPlaylist, setPlaylistTrackReq}) {
     const [showDetails, setShowDetails] = useState(false);
-    const toggleBtn = <button type="button" className={'btn btn-outline-light ' + (showDetails ? 'toggleOpen' : 'toggleClosed')} id="toggleDetails"
+    const toggleBtn = <button type="button" className={`btn btn-outline-light ` + (showDetails ? `${style.toggleOpen}` : `${style.toggleClosed}`)} id="toggleDetails"
     aria-label="Toggle details" onClick={() => toggleDetails()}>
         <FontAwesomeIcon icon={showDetails ? faAngleDown : faAngleRight} />
     </button>;
@@ -46,12 +46,12 @@ export default function Playlist({setConfirm, pl, setPlaylistTracks, setOldPlayl
                 <div className="px-3">{toggleBtn}</div>
                 <div>{pl.name}</div>
                 <div className="ml-auto mr-1">
-                    <button type="button" className="btn btn-outline-light editPlaylist" aria-label="Edit playlist" onClick={() => editPlaylist(pl)}>
+                    <button type="button" className={`btn btn-outline-light ${style.editPlaylist}`} aria-label="Edit playlist" onClick={() => editPlaylist(pl)}>
                         <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
                 </div>
                 <div className="ml-1 mr-3">
-                    <button type="button" className="btn btn-outline-light deletePlaylist" aria-label="Delete playlist" data-testid={'Delete ' + pl.name} onClick={() => confirmDeletion(pl.name, pl.id)}>
+                    <button type="button" className={`btn btn-outline-light ${style.deletePlaylist}`} aria-label="Delete playlist" data-testid={'Delete ' + pl.name} onClick={() => confirmDeletion(pl.name, pl.id)}>
                         <FontAwesomeIcon icon={faTrashCan} />
                     </button>
                 </div>

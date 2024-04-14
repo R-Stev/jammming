@@ -1,4 +1,4 @@
-import './SavedLists.css';
+import style from './SavedLists.module.css';
 import Playlist from '../Playlist/Playlist.js'
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -21,7 +21,7 @@ export default function SavedLists({setConfirm, playlistPage, setPlaylistPage, p
     }
   }
   return (
-    <section className="savedlists col my-3 pb-2" data-testid="savedlists">
+    <section className={`${style.savedlists} col my-3 pb-2`} data-testid="savedlists">
       <p className="my-2">Saved Playlists</p>
 
       {savedPlaylists.map(item => {
@@ -34,12 +34,12 @@ export default function SavedLists({setConfirm, playlistPage, setPlaylistPage, p
         setPlaylistTrackReq={setPlaylistTrackReq} />)
       })}
       <div className="row justify-content-center my-3" id="page-nav">
-        <button type="button" className="btn btn-outline-light" id="prevPage"
+        <button type="button" className="btn btn-outline-light" id={style.prevPage}
           disabled={prevPageDisabled} aria-label="Previous page" onClick={() => changePage('prev')}>
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
         <div className="px-3 my-auto">{playlistPage}</div>
-        <button type="button" className="btn btn-outline-light" id="nextPage"
+        <button type="button" className="btn btn-outline-light" id={style.nextPage}
           disabled={nextPageDisabled} aria-label="Next page" onClick={() => changePage('next')}>
           <FontAwesomeIcon icon={faArrowRight} />
         </button>

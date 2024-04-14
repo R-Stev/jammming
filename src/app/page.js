@@ -1,4 +1,7 @@
-import './App.css';
+'use client'
+import Image from "next/image";
+import style from "./page.module.css";
+
 import '../utils/fontawesome-svg-core-styles.css';
 import NewPlaylist from '../NewPlaylist/NewPlaylist.js';
 import SavedLists from '../SavedLists/SavedLists.js';
@@ -6,7 +9,7 @@ import SearchBar from '../SearchBar/SearchBar.js'
 import SearchResults from '../SearchResults/SearchResults.js'
 import Spotify from '../utils/Spotify.js'
 import DeleteModal from '../utils/DeleteModal.js'
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 // Background image sourced from https://unsplash.com/photos/64xuU5SvR0s
 
 /* Todo:
@@ -17,6 +20,9 @@ import {useState} from 'react';
  */
 
 export default function App() {
+  const loggedInState = (typeof window !== "undefined") ? (window.localStorage.getItem('refresh_token') !== null) : null;
+  
+  const [isClient, setIsClient] = useState(false)
   const [mobileOption, setMobileOption] = useState('Results'); // Determines which pane is displayed in mobile view
   const [searchTerm, setSearchTerm] = useState(null); // The search term used in SearchBar
   const [searchResults, setSearchResults] = useState([]); // The search results displayed in SearchResults
@@ -26,14 +32,18 @@ export default function App() {
   const [searchPage, setSearchPage] = useState(1); // The page number used in SearchResults
   const [playlistPage, setPlaylistPage] = useState(1); // The page number used in SavedLists
   const [trackUris, setTrackUris] = useState([]); // The list of track URIs from NewPlaylist
-  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('refresh_token') !== null);
+  const [loggedIn, setLoggedIn] = useState(loggedInState);
   const [playlistToConfirm, setPlaylistToConfirm] = useState(null); // The playlist ID to confirm deletion
   const [playlistToDelete, setPlaylistToDelete] = useState(null); // The playlist ID to be deleted
   const [searchLength, setSearchLength] = useState(0); // The length of the Spotify search results, used in SearchResults
   const [playlistLength, setPlaylistLength] = useState(0); // The length of the Spotify playlist results, used in SavedLists
   const [oldPlaylist, setOldPlaylist] = useState(null); // The initial playlist details for comparison if an existing playlist is edited
   const [playlistTrackReq, setPlaylistTrackReq] = useState(null); // The requested playlist href to read the included tracks
-  
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   function addToPlaylist(item) {
     let items = [...playlistTracks];
     if (items.find(newItem => newItem.id === item.id)) {
@@ -81,7 +91,7 @@ export default function App() {
     <div className="row mx-3 justify-content-center">
       <SearchBar setSearchTerm={setSearchTerm} setSearchPage={setSearchPage} />
     </div>
-    <div className="btn-toolbar justify-content-center mobileView py-3" role="toolbar">
+    <div className={`btn-toolbar justify-content-center ${style.mobileView} py-3`} role="toolbar">
       <div className="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" role="group">
         <label className="btn btn-outline-light active">
           <input type="radio" name="options" id="option1" value="Results" onChange={changeOptions} />Search Results
@@ -94,16 +104,16 @@ export default function App() {
         </label>
       </div>
     </div>
-    <div className="row justify-content-center mx-3 mobileView">
+    <div className={`row justify-content-center mx-3 ${style.mobileView}`}>
       { mobileOption === 'Results' && resultsPane}
       { mobileOption === 'New list' && newPlaylistPane}
       { mobileOption === 'Saved lists' && savedPlaylistPane}
     </div>
-    <div className="row mx-3 justify-content-center desktopView">
+    <div className={`row mx-3 justify-content-center ${style.desktopView}`}>
       {resultsPane}
       {newPlaylistPane}
     </div>
-    <div className="row mx-3 justify-content-center desktopView">
+    <div className={`row mx-3 justify-content-center ${style.desktopView}`}>
       {savedPlaylistPane}
     </div>
     <div>
@@ -122,41 +132,42 @@ export default function App() {
   </main>;
   const userNotLoggedIn = <main className="appBody">
     <div className="row justify-content-center">
-      <div className="loggedOut col px-4 text-center">
+      <div className={`${style.loggedOut} col px-4 text-center`}>
         <h1 className="mb-3">Spotify playlist management</h1>
         <div>This site allows you to manage your Spotify playlists.</div>
         <div>Search for tracks, edit existing playlists, delete them entirely, or create new ones.</div>
       </div>
     </div>
-  </main>
+  </main>;
 
-  return (
-    <div className="App">
-      <header className="appHeader">
-        <div className="headerTitle">Jamming</div>
-        <Spotify loggedIn={loggedIn}
-        setLoggedIn={setLoggedIn}
-        term={searchTerm}
-        setSearchTerm={setSearchTerm}
-        setSearchResults={setSearchResults}
-        savedPlaylists={savedPlaylists}
-        setSavedPlaylists={setSavedPlaylists}
-        playlistDetails={playlistDetails}
-        setPlaylistDetails={setPlaylistDetails}
-        trackUris={trackUris}
-        setTrackUris={setTrackUris}
-        playlistToDelete={playlistToDelete}
-        setPlaylistToDelete={setPlaylistToDelete}
-        searchPage={searchPage}
-        playlistPage={playlistPage}
-        setSearchLength={setSearchLength}
-        setPlaylistLength={setPlaylistLength}
-        oldPlaylist={oldPlaylist}
-        setOldPlaylist={setOldPlaylist}
-        playlistTrackReq={playlistTrackReq}
-        setPlaylistTrackReq={setPlaylistTrackReq} />
-      </header>
-      {loggedIn ? userLoggedIn : userNotLoggedIn}
-    </div>
-  );
+  const clientBody = <div className="App">
+  <header className={style.appHeader}>
+    <div className={style.headerTitle}>Jamming</div>
+    <Spotify loggedIn={loggedIn}
+    setLoggedIn={setLoggedIn}
+    term={searchTerm}
+    setSearchTerm={setSearchTerm}
+    setSearchResults={setSearchResults}
+    savedPlaylists={savedPlaylists}
+    setSavedPlaylists={setSavedPlaylists}
+    playlistDetails={playlistDetails}
+    setPlaylistDetails={setPlaylistDetails}
+    trackUris={trackUris}
+    setTrackUris={setTrackUris}
+    playlistToDelete={playlistToDelete}
+    setPlaylistToDelete={setPlaylistToDelete}
+    searchPage={searchPage}
+    playlistPage={playlistPage}
+    setSearchLength={setSearchLength}
+    setPlaylistLength={setPlaylistLength}
+    oldPlaylist={oldPlaylist}
+    setOldPlaylist={setOldPlaylist}
+    playlistTrackReq={playlistTrackReq}
+    setPlaylistTrackReq={setPlaylistTrackReq} />
+  </header>
+  {loggedIn ? userLoggedIn : userNotLoggedIn}
+</div>;
+
+
+  return (isClient ? clientBody : <div></div>);
 }

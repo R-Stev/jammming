@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import './SearchBar.css';
+import style from  './SearchBar.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { config } from '@fortawesome/fontawesome-svg-core';
@@ -7,7 +7,7 @@ config.autoAddCss = false
 
 export default function SearchBar({setSearchTerm, setSearchPage}) {
   const [showDetails, setShowDetails] = useState(false);
-  const toggleBtn = <button type="button" className={'btn btn-outline-light ' + (showDetails ? 'toggleOpen' : 'toggleClosed')} id="toggleDetails"
+  const toggleBtn = <button type="button" className={`btn btn-outline-light ` + (showDetails ? `${style.toggleOpen}` : `${style.toggleClosed}`)} id="toggleDetails"
   aria-label="Toggle details" onClick={() => toggleDetails()}>
       <FontAwesomeIcon icon={showDetails ? faAngleDown : faAngleRight} />
   </button>;
@@ -28,11 +28,11 @@ export default function SearchBar({setSearchTerm, setSearchPage}) {
     }
   }
   function makeSearch() {
-    const generalTerm = document.getElementById('searchInput').value.trim();
-    let trackTerm = document.getElementById('trackInput')?.value.trim();
-    let artistTerm = document.getElementById('artistInput')?.value.trim();
-    let albumTerm = document.getElementById('albumInput')?.value.trim();
-    let yearTerm = document.getElementById('yearInput')?.value.trim();
+    const generalTerm = document.getElementById(style.searchInput).value.trim();
+    let trackTerm = document.getElementById("trackInput")?.value.trim();
+    let artistTerm = document.getElementById("artistInput")?.value.trim();
+    let albumTerm = document.getElementById("albumInput")?.value.trim();
+    let yearTerm = document.getElementById("yearInput")?.value.trim();
     if(trackTerm?.length > 0){trackTerm = `track:${trackTerm}`}
     if(artistTerm?.length > 0){artistTerm = `artist:${artistTerm}`}
     if(albumTerm?.length > 0){albumTerm = `album:${albumTerm}`}
@@ -44,20 +44,20 @@ export default function SearchBar({setSearchTerm, setSearchPage}) {
     }
   }
   function clearSearch() {
-    document.getElementById('searchInput').value = '';
+    document.getElementById(style.searchInput).value = '';
     if(showDetails){
-      document.getElementById('trackInput').value = '';
-      document.getElementById('artistInput').value = '';
-      document.getElementById('albumInput').value = '';
-      document.getElementById('yearInput').value = '';  
+      document.getElementById("trackInput").value = '';
+      document.getElementById("artistInput").value = '';
+      document.getElementById("albumInput").value = '';
+      document.getElementById("yearInput").value = '';  
     }
   }
   return (
-    <section className="searchBar col my-3">
+    <section className={`${style.searchBar} col my-3`}>
         <div className="my-1 text-center">
           <div>
             {toggleBtn}
-            <input type="text" id="searchInput" placeholder='Search'
+            <input type="text" id={style.searchInput} placeholder='Search'
             onKeyDown={e => triggerSearch(e.key)} />
           </div>
           {showDetails && expandedSearch}
