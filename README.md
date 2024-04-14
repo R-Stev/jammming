@@ -26,4 +26,3 @@ Runs the app in the development mode.  Then open [http://localhost:3000](http://
 ### `npm run build`
 
 Builds the app for production to the `build` folder.
-
