@@ -6,11 +6,9 @@ const redirectUri = (!process.env.NODE_ENV || process.env.NODE_ENV === 'developm
     ? 'http://localhost:3000/'
     : 'https://spotify-playlist-manage.netlify.app/';
 
-// const CLIENT_ID = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development')
-//     ? secrets.CLIENT_ID
-//     : await fetch('/.netlify/functions/getKey').then((res) => res.json()).then((res) => res.CLIENT_ID);
-
-const CLIENT_ID = secrets.CLIENT_ID;
+const CLIENT_ID = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development')
+    ? secrets.CLIENT_ID
+    : await fetch('/.netlify/functions/getKey').then((res) => res.json()).then((res) => res.CLIENT_ID);
 
 export default function Spotify({
     loggedIn,
