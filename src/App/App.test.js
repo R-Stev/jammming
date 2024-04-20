@@ -5,9 +5,9 @@ beforeEach(() => {
   // Interacting with the Spotify API requires valid token values
   // The testing currently requires copying the localStorage/sessionstorage values
   // from the browser to bypass going through the login popup in the tests
-  const accessTokenVal = 'to add';
+  const accessTokenVal = 'BQC_urOK9MmWHJMUTn0ziAu9XP2-BQU7b9mb_uNzZ_6tMX3q3fitMDmh3QVt3CJp4gkUoq6uz2hF5jY49qzbRlNaB1InuScLX84W4lxFK10sE8yBZOMQiGEatY8KMgoYU2WUeI2HsaSmaMchTUoN69LlK2ZCtcGke67yFPlJuELkfUaYOeqbR297n1dky0Tr4GzQ9bkJGI2TZLMILq0tWrXtNG6LXWb0y4G6ZNxU6iUbRO_Q11XC8Vlu4TA';
   const expireVal = '9999999999999';
-  const refreshTokenVal = 'to add';
+  const refreshTokenVal = 'AQANZfPP98zHLQXhuss776OXI11bfhhL41U7aQ-L1NlDcnaYPN2NM9q7xISJctQP5aPGL9tqDkHX0s9lnYoE4TC1EGKVpkkXxd_3D2snl-UZczn4GzJnkrPSBK1rIqWelqA';
   sessionStorage.setItem('access_token', accessTokenVal);
   sessionStorage.setItem('expires_at', expireVal);
   localStorage.setItem('refresh_token', refreshTokenVal);

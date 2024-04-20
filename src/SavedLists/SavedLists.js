@@ -11,8 +11,8 @@ export default function SavedLists({setConfirm, playlistPage, setPlaylistPage, p
   const [nextPageDisabled, setNextPageDisabled] = useState(true);
   const pageMax = Math.max(Math.ceil(playlistLength / 10),1);
   useEffect(() => {
-    setPrevPageDisabled(playlistPage == 1);
-    setNextPageDisabled(playlistPage == pageMax);
+    setPrevPageDisabled(playlistPage === 1);
+    setNextPageDisabled(playlistPage === pageMax);
   }, [playlistPage, pageMax]);
   function changePage(dir) {
     let newPage = (dir === 'prev' ? playlistPage - 1 : playlistPage + 1);

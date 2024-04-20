@@ -101,7 +101,7 @@ export default function Spotify({
                 const accessToken = await getAccessToken();
                 const plTrackRes = await readPlaylistTracks(playlistTrackReq, accessToken);
                 let plCopy = savedPlaylists;
-                let plIndex = savedPlaylists.findIndex(pl => pl.href == playlistTrackReq);
+                let plIndex = savedPlaylists.findIndex(pl => pl.href === playlistTrackReq);
                 plCopy[plIndex].tracks = plTrackRes;
                 setSavedPlaylists(plCopy);
                 setPlaylistTrackReq(null);

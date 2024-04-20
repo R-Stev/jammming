@@ -11,8 +11,8 @@ export default function SearchResults({onAdd, results, searchPage, setSearchPage
   const [nextPageDisabled, setNextPageDisabled] = useState(true);
   const pageMax = Math.max(Math.ceil(searchLength / 20),1);
   useEffect(() => {
-    setPrevPageDisabled(searchPage == 1);
-    setNextPageDisabled(searchPage == pageMax);
+    setPrevPageDisabled(searchPage === 1);
+    setNextPageDisabled(searchPage === pageMax);
   }, [searchPage, pageMax]);
   function changePage(dir) {
     let newPage = (dir === 'prev' ? searchPage - 1 : searchPage + 1);

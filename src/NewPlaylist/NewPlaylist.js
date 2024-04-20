@@ -95,7 +95,7 @@ export default function NewPlaylist({
   }
   return (
     <section className="playlist col my-3" data-testid="playlist">
-      <div className="my-1 text-center">
+      <div className="my-2 text-center">
         <div>
           {toggleBtn}
           <input type="text" id="playlistTitleInput" placeholder="New Playlist"

@@ -19,7 +19,7 @@ export default function Playlist({setConfirm, pl, setPlaylistTracks, setOldPlayl
       });
     function toggleDetails() {
         setShowDetails(!showDetails);
-        if(!showDetails && pl.tracks.length == 0){
+        if(!showDetails && pl.tracks.length === 0){
             setPlaylistTrackReq(pl.href);
         }
     }
