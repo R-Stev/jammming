@@ -72,6 +72,8 @@ export default function Spotify({
                 if(oldPlaylist){
                     await savePlaylist(playlistDetails, trackUris, oldPlaylist)
                 } else {await savePlaylist(playlistDetails, trackUris)}
+                setPlaylistDetails(null);
+                setTrackUris([]);
                 refreshPlaylists();
             }
         }
@@ -259,8 +261,6 @@ export default function Spotify({
         if (!details.name || !trackUris.length) {
             return;
         }
-        setPlaylistDetails(null);
-        setTrackUris([]);
 
         const accessToken = await getAccessToken();
         const headers = { Authorization: `Bearer ${accessToken}` };
