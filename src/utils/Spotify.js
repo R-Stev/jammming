@@ -1,6 +1,6 @@
 import secrets from '../secrets.json';
 import PopupWindow from './PopupWindow.js';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 const redirectUri = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development')
     ? 'http://localhost:3000/'
@@ -86,14 +86,13 @@ export default function Spotify({
       refreshPlaylists();
     }
 
-    const [prevDeletion, setPrevDeletion] = useState(playlistToDelete);
-    if(playlistToDelete !== prevDeletion) {
-        setPrevDeletion(playlistToDelete);
+    useEffect(() => {
         if(playlistToDelete){
             deletePlaylist(playlistToDelete);
             setPlaylistToDelete(null);
         }
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [playlistToDelete]);
 
     const [prevPlReq, setPrevPlReq] = useState(playlistTrackReq)
     if(playlistTrackReq !== prevPlReq) {
