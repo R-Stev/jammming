@@ -10,10 +10,10 @@ import {useState} from 'react';
 // Background image sourced from https://unsplash.com/photos/64xuU5SvR0s
 
 /* Todo:
-  get the list of tracks in a playlist only on request?
   add handling for HTTP 429 rate limiting?
   convert to using redux?
-  more tests?
+  fix playlist name in saved playlists not updating when modified
+  load the playlist tracks on clicking edit, if empty
  */
 
 export default function App() {
@@ -33,6 +33,7 @@ export default function App() {
   const [playlistLength, setPlaylistLength] = useState(0); // The length of the Spotify playlist results, used in SavedLists
   const [oldPlaylist, setOldPlaylist] = useState(null); // The initial playlist details for comparison if an existing playlist is edited
   const [playlistTrackReq, setPlaylistTrackReq] = useState(null); // The requested playlist href to read the included tracks
+  const [saveCounter, setSaveCounter] = useState(1);
   
   function addToPlaylist(item) {
     let items = [...playlistTracks];
@@ -67,7 +68,9 @@ export default function App() {
         oldPlaylist={oldPlaylist}
         setOldPlaylist = {setOldPlaylist}
         setTrackUris={setTrackUris}
-        playlistDetails={playlistDetails} />;
+        playlistDetails={playlistDetails}
+        saveCounter={saveCounter}
+        setSaveCounter={setSaveCounter} />;
   const savedPlaylistPane = <SavedLists setConfirm={setPlaylistToConfirm}
         playlistPage={playlistPage}
         setPlaylistPage={setPlaylistPage}
@@ -75,7 +78,8 @@ export default function App() {
         savedPlaylists={savedPlaylists}
         setPlaylistTracks={setPlaylistTracks}
         setOldPlaylist={setOldPlaylist}
-        setPlaylistTrackReq={setPlaylistTrackReq} />;
+        setPlaylistTrackReq={setPlaylistTrackReq}
+        saveCounter={saveCounter} />;
 
   const userLoggedIn = <main className="appBody">
     <div className="row mx-3 justify-content-center">

@@ -6,8 +6,17 @@ import { faAngleDown, faAngleRight, faTrashCan, faPenToSquare } from '@fortaweso
 import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false
 
-export default function Playlist({setConfirm, pl, setPlaylistTracks, setOldPlaylist, setPlaylistTrackReq}) {
+export default function Playlist({
+    setConfirm, pl, setPlaylistTracks, setOldPlaylist, setPlaylistTrackReq, saveCounter
+}) {
     const [showDetails, setShowDetails] = useState(false);
+    const [prevCounter, setPrevCounter] = useState(saveCounter);
+    if(saveCounter !== prevCounter) {
+        setPrevCounter(saveCounter);
+        if(showDetails) {
+            toggleDetails();
+        }
+    }
     const toggleBtn = <button type="button" className={'btn btn-outline-light ' + (showDetails ? 'toggleOpen' : 'toggleClosed')} id="toggleDetails"
     aria-label="Toggle details" onClick={() => toggleDetails()}>
         <FontAwesomeIcon icon={showDetails ? faAngleDown : faAngleRight} />

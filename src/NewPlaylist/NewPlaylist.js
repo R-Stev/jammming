@@ -7,7 +7,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false
 
 export default function NewPlaylist({
-  onRemove, tracks, setPlaylistTracks, setPlaylistDetails, oldPlaylist, setOldPlaylist, setTrackUris, playlistDetails
+  onRemove, tracks, setPlaylistTracks, setPlaylistDetails, oldPlaylist, setOldPlaylist, setTrackUris, playlistDetails, saveCounter, setSaveCounter
 }) {
   const [showDetails, setShowDetails] = useState(false);
   const toggleBtn = <button type="button" id="toggleDetails"
@@ -85,6 +85,7 @@ export default function NewPlaylist({
       setTrackUris(uris);
       setDetailElements({name: '', description: '', public: true, collaborative: false});
       setPlaylistTracks([]);
+      setSaveCounter(saveCounter + 1)
     }
   }
   function clearPlaylist() {

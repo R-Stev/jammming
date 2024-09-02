@@ -6,7 +6,9 @@ import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false
 
-export default function SavedLists({setConfirm, playlistPage, setPlaylistPage, playlistLength, savedPlaylists, setPlaylistTracks, setOldPlaylist, setPlaylistTrackReq}) {
+export default function SavedLists({
+  setConfirm, playlistPage, setPlaylistPage, playlistLength, savedPlaylists, setPlaylistTracks, setOldPlaylist, setPlaylistTrackReq, saveCounter
+}) {
   const [prevPageDisabled, setPrevPageDisabled] = useState(true);
   const [nextPageDisabled, setNextPageDisabled] = useState(true);
   const pageMax = Math.max(Math.ceil(playlistLength / 10),1);
@@ -31,7 +33,8 @@ export default function SavedLists({setConfirm, playlistPage, setPlaylistPage, p
         pl={item}
         setPlaylistTracks={setPlaylistTracks}
         setOldPlaylist={setOldPlaylist}
-        setPlaylistTrackReq={setPlaylistTrackReq} />)
+        setPlaylistTrackReq={setPlaylistTrackReq}
+        saveCounter={saveCounter} />)
       })}
       <div className="row justify-content-center my-3" id="page-nav">
         <button type="button" className="btn btn-outline-light" id="prevPage"
