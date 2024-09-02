@@ -32,7 +32,21 @@ export default function Playlist({
             setPlaylistTrackReq(pl.href);
         }
     }
-    function editPlaylist(pl) {
+
+    //From https://stackoverflow.com/a/52652681/209794
+    function waitFor(conditionFunction){
+        const poll = resolve => {
+            if(conditionFunction()) resolve();
+            else setTimeout(_ => poll(resolve), 400);
+        }      
+        return new Promise(poll);
+    }      
+    async function editPlaylist(pl) {
+        if(pl.tracks.length === 0){
+            setPlaylistTrackReq(pl.href);
+        }
+        // This will cause problens should playlists with 0 tracks be allowed later on
+        await waitFor(_ => pl.tracks.length > 0);
         setPlaylistTracks(pl.tracks);
         setOldPlaylist({
             id: pl.id,
