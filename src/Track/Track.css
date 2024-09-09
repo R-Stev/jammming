@@ -20,6 +20,6 @@
 
 @media only screen and (min-width: 701px) {
     .trackTextBtn {
-        max-width: min(calc(50vw - 96px), 400px);
+        max-width: min(calc(50vw - 96px), 430px);
     }
 }
