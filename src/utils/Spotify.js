@@ -256,6 +256,10 @@ export default function Spotify({
             }));
         });
     }
+    function playlistDetailsChanged(oldpl, newpl) {
+        return (oldpl.name !== newpl.name) || (oldpl.description !== newpl.description)
+         || (oldpl.public !== newpl.public) || (oldpl.collaborative !== newpl.collaborative)
+    }
     async function savePlaylist(details, trackUris, oldPlaylist = null) {
         if (!details.name || !trackUris.length) {
             return;
@@ -280,7 +284,7 @@ export default function Spotify({
                 });
             });
         } else if(oldPlaylist.id) {
-            if(oldPlaylist.name !== details.name) {
+            if(playlistDetailsChanged(oldPlaylist, details)) {
                 await savePlaylistDetails(oldPlaylist.id, headers, details);
             }
             if(oldPlaylist.tracks !== trackUris) {
