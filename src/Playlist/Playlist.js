@@ -7,7 +7,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false
 
 export default function Playlist({
-    setConfirm, pl, setPlaylistTracks, setOldPlaylist, setPlaylistTrackReq, saveCounter
+    setConfirm, pl, setPlaylistTracks, setOldPlaylist, setPlaylistTrackReq, saveCounter, renamePlaylist, setRenamePlaylist
 }) {
     const [showDetails, setShowDetails] = useState(false);
     const [prevCounter, setPrevCounter] = useState(saveCounter);
@@ -15,6 +15,14 @@ export default function Playlist({
         setPrevCounter(saveCounter);
         if(showDetails) {
             toggleDetails();
+        }
+    }
+    const [renPl, setRenPl] = useState(renamePlaylist);
+    if(renamePlaylist !== renPl) {
+        setRenPl(renamePlaylist);
+        if(renamePlaylist.id === pl.id && renamePlaylist.name !== pl.name){
+            pl.name = renamePlaylist.name;
+            renamePlaylist = null;
         }
     }
     const toggleBtn = <button type="button" className={'btn btn-outline-light ' + (showDetails ? 'toggleOpen' : 'toggleClosed')} id="toggleDetails"

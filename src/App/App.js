@@ -34,6 +34,7 @@ export default function App() {
   const [oldPlaylist, setOldPlaylist] = useState(null); // The initial playlist details for comparison if an existing playlist is edited
   const [playlistTrackReq, setPlaylistTrackReq] = useState(null); // The requested playlist href to read the included tracks
   const [saveCounter, setSaveCounter] = useState(1);
+  const [renamePlaylist, setRenamePlaylist] = useState(null); // Used for changing the name of an updated playlist
   
   function addToPlaylist(item) {
     let items = [...playlistTracks];
@@ -79,7 +80,9 @@ export default function App() {
         setPlaylistTracks={setPlaylistTracks}
         setOldPlaylist={setOldPlaylist}
         setPlaylistTrackReq={setPlaylistTrackReq}
-        saveCounter={saveCounter} />;
+        saveCounter={saveCounter}
+        renamePlaylist={renamePlaylist}
+        setRenamePlaylist={setRenamePlaylist} />;
 
   const userLoggedIn = <main className="appBody">
     <div className="row mx-3 justify-content-center">
@@ -158,7 +161,8 @@ export default function App() {
         oldPlaylist={oldPlaylist}
         setOldPlaylist={setOldPlaylist}
         playlistTrackReq={playlistTrackReq}
-        setPlaylistTrackReq={setPlaylistTrackReq} />
+        setPlaylistTrackReq={setPlaylistTrackReq}
+        setRenamePlaylist={setRenamePlaylist} />
       </header>
       {loggedIn ? userLoggedIn : userNotLoggedIn}
     </div>

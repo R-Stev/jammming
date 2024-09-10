@@ -31,7 +31,8 @@ export default function Spotify({
     oldPlaylist,
     setOldPlaylist,
     playlistTrackReq,
-    setPlaylistTrackReq
+    setPlaylistTrackReq,
+    setRenamePlaylist
 }) {
 
     const [prevTerm, setPrevTerm] = useState(term);
@@ -285,7 +286,10 @@ export default function Spotify({
             });
         } else if(oldPlaylist.id) {
             if(playlistDetailsChanged(oldPlaylist, details)) {
-                await savePlaylistDetails(oldPlaylist.id, headers, details);
+                const result = await savePlaylistDetails(oldPlaylist.id, headers, details);
+                if(result && oldPlaylist.name !== details.name) {
+                    setRenamePlaylist({name: details.name, id: oldPlaylist.id});
+                }
             }
             if(oldPlaylist.tracks !== trackUris) {
                 await savePlaylistTracks(oldPlaylist.id, trackUris, headers);
@@ -302,6 +306,7 @@ export default function Spotify({
             if (!response.ok) {
                 throw new Error(`HTTP status ${response.status}, ${response.message}`);
             }
+            return response.ok;
         });
     }
     async function savePlaylistDetails(playlistId, headers, details) {

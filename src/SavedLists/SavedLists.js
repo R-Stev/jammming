@@ -7,7 +7,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 config.autoAddCss = false
 
 export default function SavedLists({
-  setConfirm, playlistPage, setPlaylistPage, playlistLength, savedPlaylists, setPlaylistTracks, setOldPlaylist, setPlaylistTrackReq, saveCounter
+  setConfirm, playlistPage, setPlaylistPage, playlistLength, savedPlaylists, setPlaylistTracks, setOldPlaylist, setPlaylistTrackReq, saveCounter, renamePlaylist, setRenamePlaylist
 }) {
   const [prevPageDisabled, setPrevPageDisabled] = useState(true);
   const [nextPageDisabled, setNextPageDisabled] = useState(true);
@@ -34,7 +34,9 @@ export default function SavedLists({
         setPlaylistTracks={setPlaylistTracks}
         setOldPlaylist={setOldPlaylist}
         setPlaylistTrackReq={setPlaylistTrackReq}
-        saveCounter={saveCounter} />)
+        saveCounter={saveCounter}
+        renamePlaylist={renamePlaylist}
+        setRenamePlaylist={setRenamePlaylist} />)
       })}
       <div className="row justify-content-center my-3" id="page-nav">
         <button type="button" className="btn btn-outline-light" id="prevPage"
