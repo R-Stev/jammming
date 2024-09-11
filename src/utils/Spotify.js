@@ -318,6 +318,7 @@ export default function Spotify({
             if (!response.ok) {
                 throw new Error(`HTTP status ${response.status}, ${response.message}`);
             }
+            return response.ok;
         });
     }
     async function readPlaylists(playlistPage) {

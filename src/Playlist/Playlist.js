@@ -18,11 +18,11 @@ export default function Playlist({
         }
     }
     const [renPl, setRenPl] = useState(renamePlaylist);
+    const [playlistName, setPlaylistName] = useState(pl?.name);
     if(renamePlaylist !== renPl) {
         setRenPl(renamePlaylist);
         if(renamePlaylist.id === pl.id && renamePlaylist.name !== pl.name){
-            pl.name = renamePlaylist.name;
-            renamePlaylist = null;
+            setPlaylistName(renamePlaylist.name);
         }
     }
     const toggleBtn = <button type="button" className={'btn btn-outline-light ' + (showDetails ? 'toggleOpen' : 'toggleClosed')} id="toggleDetails"
@@ -58,7 +58,7 @@ export default function Playlist({
         setPlaylistTracks(pl.tracks);
         setOldPlaylist({
             id: pl.id,
-            name: pl.name,
+            name: playlistName,
             description: pl.description,
             public: pl.public,
             collaborative: pl.collaborative,
@@ -72,17 +72,17 @@ export default function Playlist({
         })
     }
     return (
-        <div className="my-2" data-testid={'SavedList ' + pl.name}>
+        <div className="my-2" data-testid={'SavedList ' + playlistName}>
             <div className="plItem row">
                 <div className="px-3">{toggleBtn}</div>
-                <div>{pl.name}</div>
+                <div>{playlistName}</div>
                 <div className="ml-auto mr-1">
                     <button type="button" className="btn btn-outline-light editPlaylist" aria-label="Edit playlist" onClick={() => editPlaylist(pl)}>
                         <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
                 </div>
                 <div className="ml-1 mr-3">
-                    <button type="button" className="btn btn-outline-light deletePlaylist" aria-label="Delete playlist" data-testid={'Delete ' + pl.name} onClick={() => confirmDeletion(pl.name, pl.id)}>
+                    <button type="button" className="btn btn-outline-light deletePlaylist" aria-label="Delete playlist" data-testid={'Delete ' + playlistName} onClick={() => confirmDeletion(playlistName, pl.id)}>
                         <FontAwesomeIcon icon={faTrashCan} />
                     </button>
                 </div>
