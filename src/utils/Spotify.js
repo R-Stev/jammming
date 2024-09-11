@@ -193,10 +193,9 @@ export default function Spotify({
             body: body
         })
         .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP status ${response.status}, ${response.message}`);
+            if(handleResponse(response)) {
+                return response.json();
             }
-            return response.json();
         })
         .then(data => {
             const t = new Date();
@@ -238,10 +237,9 @@ export default function Spotify({
         return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}&offset=${(searchPage-1)*20}`, {
             headers: { Authorization: `Bearer ${accessToken}` }
         }).then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP status ${response.status}, ${response.message}`);
+            if(handleResponse(response)) {
+                return response.json();
             }
-            return response.json();
         }).then(jsonResponse => {
             if (!jsonResponse.tracks) {
                 return [];
@@ -260,6 +258,15 @@ export default function Spotify({
     function playlistDetailsChanged(oldpl, newpl) {
         return (oldpl.name !== newpl.name) || (oldpl.description !== newpl.description)
          || (oldpl.public !== newpl.public) || (oldpl.collaborative !== newpl.collaborative)
+    }
+    function handleResponse(response) {
+        if(response.ok) {
+            return response.ok;
+        } else {
+            return response.json().then(jsonResponse => {
+                throw new Error(`HTTP status ${jsonResponse.error.status}, ${jsonResponse.error.message}`);
+            });
+        }
     }
     async function savePlaylist(details, trackUris, oldPlaylist = null) {
         if (!details.name || !trackUris.length) {
@@ -302,24 +309,14 @@ export default function Spotify({
             headers: headers,
             method: 'PUT',
             body: JSON.stringify({uris: trackUris})
-        }).then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP status ${response.status}, ${response.message}`);
-            }
-            return response.ok;
-        });
+        }).then(response => handleResponse(response));
     }
     async function savePlaylistDetails(playlistId, headers, details) {
         return fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
             headers: headers,
             method: 'PUT',
             body: JSON.stringify(details)
-        }).then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP status ${response.status}, ${response.message}`);
-            }
-            return response.ok;
-        });
+        }).then(response => handleResponse(response));
     }
     async function readPlaylists(playlistPage) {
         const accessToken = await getAccessToken();
@@ -376,10 +373,9 @@ export default function Spotify({
             headers: headers,
             method: 'DELETE'
         }).then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP status ${response.status}, ${response.message}`);
+            if(handleResponse(response)) {
+                refreshPlaylists();
             }
-            refreshPlaylists();
         });
     }
     async function refreshPlaylists(){
